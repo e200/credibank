@@ -1,0 +1,9 @@
+{
+  "name": "credi_bank",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
