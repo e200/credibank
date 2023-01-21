@@ -4,19 +4,33 @@ const app = express()
 
 const creditAccounts = []
 
+const createCreditAccount = (accountId) => {
+  creditAccounts[accountId] = {
+    availableAmmount: 10000,
+    checks: [],
+  }
+}
+
+app.get('/check/:credit_account_id', (req, res) => {
+  const creditAccountId = req.params.credit_account_id
+
+  if (!creditAccounts[creditAccountId]) {
+    createCreditAccount(creditAccountId)
+  }
+
+  res.send(creditAccounts[creditAccountId])
+})
+
 app.get('/check/:credit_account_id/ammount/:ammount', (req, res) => {
   const creditAccountId = req.params.credit_account_id
   const ammount = Number(req.params.ammount)
 
   if (!creditAccounts[creditAccountId]) {
-    creditAccounts[creditAccountId] = {
-      availableAmmount: 10000,
-      checks: [],
-    }
+    createCreditAccount(creditAccountId)
   }
 
   const check = {
-    id: Math.random() * 10000000000000000,
+    id: Math.floor(Math.random() * 10000000000000000),
     ammount,
   }
 
